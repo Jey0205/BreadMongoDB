@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+<body>
+  <h2>Add Data Siswa</h2>
+  <form action="" method="POST">
+    <label for="nama"> Nama</label>
+    <input style="background-color: aqua;" class="form-control" type="text" placeholder="Nama.." aria-label="default input example" name="nama">
+    <label for="umur"> Umur</label>
+    <input style="background-color: rgb(81, 245, 144);" class="form-control" type="number" placeholder="Umur.." aria-label="default input example" name="umur">
+    <label for="tinggi"> Tinggi</label>
+    <input style="background-color: aqua;" class="form-control" type="number" step="0.01" placeholder="Tinggi.." aria-label="default input example" name="tinggi">
+    <label for="tanggalLahir"> Tanggal Lahir</label>
+    <input style="background-color: rgb(81, 245, 144);"class="form-control" type="date" placeholder="Tanggal Lahir" aria-label="default input example" name="ttl">
+    <label for="jomblo"> Jomblo?</label>
+    <select style="background-color: aqua;"class="form-select form-select-sm" aria-label=".form-select-sm example" name="jomblo">
+      <option hidden>Pilih Status..</option>
+      <option value="true">True</option>
+      <option value="false">False</option>
+    </select>
+    <button type="submit" class="btn btn-outline-success">Save</button>
+    <a href="/" class="btn btn-outline-danger">Cancel</a>
+  </form>
+  
+
+<%- include('partials/footer') %>

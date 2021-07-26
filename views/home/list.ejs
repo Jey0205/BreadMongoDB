@@ -1,0 +1,133 @@
+<%- include('../partials/header') %>
+
+    
+<form action="" method="get">
+    <H2 style="font-family:cursive;" >Search Siswa</H2>
+    <input type="hidden" name="page" value="1">
+
+    <input type="checkbox" id="checkNama" onclick="cNama()" name="checkNama" <%= nama ? ' checked': ''  %> 
+    />
+    <label for="nama">Nama</label>
+    <input style="background-color: violet;" class="form-control" name="nama" id="nama" type="text"  placeholder="nama.." value="<%= nama%>" <%= nama ? ''
+        : ' disabled' %> />
+
+    <input type="checkbox" id="checkUmur" onclick="cUmur()" <%= umur ? ' checked' : '' %> >
+    <label for="umur">Umur</label>
+    <input style="background-color: violet;" class="form-control" id="umur" name="umur" type="number"  placeholder="umur.." value="<%= umur%>" <%= umur ? ''
+        : ' disabled' %> />
+
+    <input type="checkbox" id="checkTinggi" onclick="cTinggi()" <%= tinggi ? ' checked' : '' %> >
+    <label for="tinggi">Tinggi</label>
+    <input style="background-color: violet;" class="form-control" type="number" id="tinggi" name="tinggi"  step="0.01" placeholder="tinggi.." value="<%= tinggi%>" <%= tinggi
+        ? '' : ' disabled' %> />
+
+    <input type="checkbox" id="checkDate" onclick="cDate()" <%= start ? ' checked' : '' %> >
+    <label for="date">Tanggal Lahir</label>
+    <input style="background-color: violet;" id="start" class="date-search" name="start" type="date" value="<%= start %>" <%= start ? '' : ' disabled'
+        %> > to
+    <input style="background-color: violet;" id="end" class="date-search" name="end" type="date" value="<%= end %>" <%= end ? '' : ' disabled' %> >
+
+
+    <input type="checkbox" id="checkJomblo" onclick="cJomblo()" <%= jomblo ? ' checked' : '' %> >
+    <label for="jomblo">Jomblo?</label>
+    <select style="background-color: violet;" name="jomblo" id="jomblo" <%= jomblo ? '' : ' disabled' %> >
+        <option hidden>Choose the jomblo..</option>
+        <option value="True" <%= jomblo=='True' ? ' selected' : '' %>>True</option>
+        <option value="False" <%= jomblo=='False' ? ' selected' : '' %>>False</option>
+    </select>
+
+    <button type="submit" class="btn btn-primary">Search</button>
+    <a href="/" class="btn btn-danger">Reset</a>
+</form>
+<form action="">
+    <h2 style="font-family: cursive;">Daftar Siswa</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>NAMA</th>
+            <th>UMUR</th>
+            <th>TINGGI</th>
+            <th>TANGGAL LAHIR</th>
+            <th>JOMBLO</th>
+            <th>Action</th>
+        </tr>
+        <% data.forEach((item, index) => { %>
+        <tr class="table table-success">
+            <td><%=index + 1%></td>
+            <td><%=item.nama%></td>
+            <td><%=item.umur%></td>
+            <td><%=item.tinggi%></td>
+            <td><%= moment(item.ttl).format("DD MMMM YYYY", "LL")%></td>
+            <td><%=item.jomblo%></td>
+            <td>
+                <a href="/edit/<%= item.id %>" class="btn btn-success">Edit</a>
+                <a href="/delete/<%= item.id %>" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        <% }) %>
+    </table>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <% if(page > 1){ %>
+          <li class="page-item"><a class="page-link" href="<%= url.replace(`page=${page}`, `page=${page - 1}`)%>">Previous</a></li>
+          <% } %>
+          <% for(let i=1; i <=pages; i++){ %>
+          <li class="page-item"><a class="page-link" href="<%= url.replace(`page=${page}`, `page=${i}`) %>"><%= i %></a></li>
+          <% } %>
+          <% if(page < pages){ %>
+          <li class="page-item"><a class="page-link" href="<%= url.replace(`page=${page}`, `page=${page + 1}`)%>">Next</a></li>
+          <% } %>
+        </ul>
+      </nav>
+    <div>
+    <a href="/add" class='btn btn-primary'>Add</a>
+    </div>
+</form>
+
+<script>
+   function cNama(){
+       const check = document.getElementById('checkNama')
+       if (check.checked == true) {
+            document.getElementById('nama').disabled = false;         
+       }else{
+           document.getElementById('nama').disabled = true;
+       }
+   }
+   function cUmur(){
+       const check = document.getElementById('checkUmur')
+       if (check.checked == true) {
+            document.getElementById('umur').disabled = false;         
+       }else{
+           document.getElementById('umur').disabled = true;
+       }
+   }
+   function cTinggi(){
+       const check = document.getElementById('checkTinggi')
+       if (check.checked == true) {
+            document.getElementById('tinggi').disabled = false;         
+       }else{
+           document.getElementById('tinggi').disabled = true;
+       }
+   }
+   function cDate(){
+       const check = document.getElementById('checkDate')
+       if (check.checked == true) {
+            document.getElementById('start').disabled = false;
+            document.getElementById('end').disabled = false;          
+       }else{
+        document.getElementById('start').disabled = true; 
+           document.getElementById('end').disabled = true;
+       }
+   }
+   function cJomblo(){
+       const check = document.getElementById('checkJomblo')
+       if (check.checked == true) {
+            document.getElementById('jomblo').disabled = false;         
+       }else{
+           document.getElementById('jomblo').disabled = true;
+       }
+   }
+</script>
+
+<%- include('../partials/footer') %>
